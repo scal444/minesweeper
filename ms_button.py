@@ -16,7 +16,7 @@ class ms_button(QPushButton):
     background_colors = {
         'clicked'   : "(169,169,169)",
         'unclicked' : "(211,211,211)",
-        'bomb'      : "(255,0,0)" 
+        'bomb'      : "(255,0,0)"
     }
 
     def __init__(self, position, is_mine, n_neighboring_mines, widget, board,
@@ -34,7 +34,7 @@ class ms_button(QPushButton):
 
         # point to click functionality
         self.clicked.connect(self.click_action)
-        self.update_visibility("", False)
+        self.update_visibility()
 
         self.resize(square_size, square_size)
         self.move(square_size * position[0], square_size * position[1])
@@ -48,12 +48,18 @@ class ms_button(QPushButton):
             self.text = str(self.n_neighboring_mines)
 
     def update_visibility(self):
-        self.setText(text)
         if isvisible:
-            self.setStyleSheet("background-color:rgb(169,169,169)")
-            self.setText()
-        else:
-            self.setStyleSheet("background-color:rgb(211,211,211)")
+            if self.is_mine:
+                self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['bomb']))
+                self.setStyleSheet("color:rgb(0,0,0)")
+                self.setText('X')
+            else:
+                self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['clicked']))
+                self.setStyleSheet("color:rgb{:s}".format(self.text_colors[self.n_neighboring_mines]))
+                self.setText(str(self.n_neighboring_mines))
+        else: # unclicked
+            self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['unclicked']))
+            self.setText("")
 
     def click_action(self):
         if self.board.first_click:
