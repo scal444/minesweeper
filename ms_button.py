@@ -21,23 +21,29 @@ class ms_button(QPushButton):
 
     square_size = 30
 
-    def __init__(self, position, is_mine, n_neighboring_mines, widget, board,
+    def __init__(self, position, is_mine, n_neighboring_mines, board,
                  has_been_clicked=False, enabled=True):
 
-        super().__init__(widget)
+        super().__init__(board)
         self.board = board
         self.position = position
         self.is_mine = is_mine
         self.n_neighboring_mines = n_neighboring_mines
         self.has_been_clicked = has_been_clicked
-        self.setEnabled(enabled)  # should be enabled at start for typical game
+        self.enabled = enabled
+        self.setEnabled(self.enabled)  # should be enabled at start for typical game
 
         # point to click functionality
+
         self.clicked.connect(self.click_action)
         self.update_visibility()
 
         self.resize(self.square_size, self.square_size)
         self.move(self.square_size * position[0], self.square_size * position[1])
+
+    def click_action(self):
+        print('ms button click' + str(self.position))
+        self.board.click_action(self.position)
 
     def set_underlying_text(self):
         if self.is_mine:
@@ -60,7 +66,7 @@ class ms_button(QPushButton):
         else: # unclicked
             self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['unclicked']))
             self.setText("")
-        self.setEnabled(self.has_been_clicked)    
+        self.setEnabled(self.enabled)
 
     def click_action(self):
         if self.board.first_click:
