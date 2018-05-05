@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 
 
 class ms_button(QPushButton):

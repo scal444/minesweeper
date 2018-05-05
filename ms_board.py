@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 from ms_button import ms_button
 
-class ms_board(Qwidget):
+class ms_board(QWidget):
     def __init__(self, dims, n_mines):
-        self.setGeometry(300, 300, dims[0] * ms_button.square_size, dims[1] * ms_button.square_size )
+        super().__init__()
 
+        self.setGeometry(300, 300, dims[0] * ms_button.square_size, dims[1] * ms_button.square_size )
         self.dims = dims
         self.n_mines = n_mines
         self.is_mine = np.zeros(dims, dtype=bool)
@@ -32,10 +33,6 @@ class ms_board(Qwidget):
             for j in range(self.dims[1]):
                 self.squares[i][j] = ms_button((i,j), False, 0, self)
 
-    def run_program(self):
-        print('Executing')
-        self.app.exec_()
-
     def update_square(self, i, j):
         self.squares[i][j].is_mine = self.is_mine[i,j]
         self.squares[i][j].n_neighboring_mines = self.n_neighboring_mines[i,j]
@@ -43,7 +40,7 @@ class ms_board(Qwidget):
         self.squares[i][j].enabled = self.enabled[i,j]
         self.squares[i][j].update_visibility()
 
-    def update_squares(self):
+    def update_all_squares(self):
         for i in range(self.dims[0]):
             for j in range(self.dims[1]):
                 self.update_square(i,j)
@@ -76,9 +73,9 @@ class ms_board(Qwidget):
                 self.squares[i][j].n_neighboring_mines = mines
 
     def show_board(self):
-        self.update_squares()
-        self.widg.update()
-        self.widg.show()
+        self.update_all_squares()
+        self.update()
+        self.show()
 
     def plot_underlying_board(self):
         for i in range(self.dims[0]):
