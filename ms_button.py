@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QPushButton
 
 
 class ms_button(QPushButton):
-
+    ''' Aesthetics and visual things are class attributes '''
     text_colors = {
         1 : "(0,0,255)",
         2 : "(0,255,0)",
@@ -19,10 +19,10 @@ class ms_button(QPushButton):
         'bomb'      : "(255,0,0)"
     }
 
+    square_size = 30
+
     def __init__(self, position, is_mine, n_neighboring_mines, widget, board,
                  has_been_clicked=False, enabled=True):
-
-
 
         super().__init__(widget)
         self.board = board
@@ -36,8 +36,8 @@ class ms_button(QPushButton):
         self.clicked.connect(self.click_action)
         self.update_visibility()
 
-        self.resize(square_size, square_size)
-        self.move(square_size * position[0], square_size * position[1])
+        self.resize(self.square_size, self.square_size)
+        self.move(self.square_size * position[0], self.square_size * position[1])
 
     def set_underlying_text(self):
         if self.is_mine:
@@ -48,7 +48,7 @@ class ms_button(QPushButton):
             self.text = str(self.n_neighboring_mines)
 
     def update_visibility(self):
-        if isvisible:
+        if self.has_been_clicked:
             if self.is_mine:
                 self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['bomb']))
                 self.setStyleSheet("color:rgb(0,0,0)")
@@ -60,6 +60,7 @@ class ms_button(QPushButton):
         else: # unclicked
             self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['unclicked']))
             self.setText("")
+        self.setEnabled(self.has_been_clicked)    
 
     def click_action(self):
         if self.board.first_click:
