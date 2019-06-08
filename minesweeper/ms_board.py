@@ -19,13 +19,13 @@ class ms_board:
     def __init__(self, height, width, n_mines):
 
         if height <= 0:
-            raise Exception("Height set to {} - must be positive integer".format(height))
+            raise ValueError("Height set to {} - must be positive integer".format(height))
         if width <= 0:
-            raise Exception("Width set to {} - must be positive integer".format(width))
+            raise ValueError("Width set to {} - must be positive integer".format(width))
         if n_mines < 0:
-            raise Exception("Number of mines set to {} - must be 0 or positive integer".format(n_mines))
+            raise ValueError("Number of mines set to {} - must be 0 or positive integer".format(n_mines))
         if n_mines > height * width:
-            raise Exception("More mines chosen than height * width. This isn't Bosnia")
+            raise ValueError("More mines chosen than height * width.")
 
         self.board      = np.zeros((height, width))
         self.visibility = np.zeros((width, height))
@@ -38,14 +38,14 @@ class ms_board:
         while mines_left > 0:
             i, j = np.random.randint(0, height), np.random.randint(0, width)
             if not self._is_mine(i, j):
-                board[i, j] = -1
+                self.board[i, j] = -1
                 mines_left -= 1
 
     def dimensions(self):
-        return board.shape
+        return self.board.shape
 
     def _is_mine(self, y, x):
-        return board[y, x] == -1
+        return self.board[y, x] == -1
 
     def _assign_neighbors(self):
         '''
@@ -65,6 +65,12 @@ class ms_board:
                 List of grid coordinates of neighbors, as tuples of (y, x)
         '''
         ydim, xdim = self.dimensions()
+
+        # assertion, because we should never call neighbors with wrong parameters,
+        # and the user shouldn't have access to this
+        assert y_probe >= 0 and y_probe < ydim
+        assert x_probe >= 0 and x_probe < xdim
+
         potential_y = [y for y in range(y_probe -1, y_probe + 2) if y >= 0 and y < ydim]
         potential_x = [x for x in range(x_probe -1, x_probe + 2) if x >= 0 and x < xdim]
-        return[(y, x) for y in potential_y for x in potential x if (y != y_probe or x != x_probe)]
+        return[(y, x) for y in potential_y for x in potential_x if (y != y_probe or x != x_probe)]
