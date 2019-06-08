@@ -1,0 +1,22 @@
+These are working notes on how to organize the setup, discussing (with self)
+how to divide responsibilities
+
+We (I) want to make this both an interact-able game and a minesweeper solver
+engine, and of course the two will interact. The first division then is that the
+GUI stuff should be independent of the underlying data representation. We need
+to be able to run this interactively, run it automatically, or any combination
+in between. We can start with a draw-board functionality, that gets called to
+represent the current state of the board. It doesn't have to be efficient - we can
+re-draw every panel at the start, and then worry about the rest afterwards. The only
+stipulation is that if we have a game frame up already, it should work on that frame,
+rather than recreating a widget or whatever.
+
+Another thing is that for intermediate development, we want a quick and dirty
+hack of the representation, probably text-interface based. It will honestly probably
+be good practice to make the interface between text and gui-based representations
+interact the same with the rest of the code - yay API design.
+
+What this gives us is a clear difference between visualization and representation.
+We'll start with that. The next thing is manipulation of the representation. This needs
+to be able to be accessed both through a gui click, and as an automated workflow. So there
+should be some clickaction interface to handle it.
