@@ -20,3 +20,6 @@ What this gives us is a clear difference between visualization and representatio
 We'll start with that. The next thing is manipulation of the representation. This needs
 to be able to be accessed both through a gui click, and as an automated workflow. So there
 should be some clickaction interface to handle it.
+
+For visibility, we should maybe consider an enum of (unvisited, visited,
+marked_as_flag, marked_as_question). Can a numpy array hold that? 
