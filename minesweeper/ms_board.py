@@ -13,8 +13,8 @@ class ms_board:
             width (int): width of board
             n_mines(int): number of mines with which to populate board
         Attributes:
-            board (np.array:int) :
-            visibility (np.array:int) :
+            board (np.array:int) : board describing mines and number of neighboring mines
+            visibility (np.array:bool) : mask for whether tiles have been clicked
     '''
     def __init__(self, height, width, n_mines):
 
@@ -27,12 +27,17 @@ class ms_board:
         if n_mines > height * width:
             raise ValueError("More mines chosen than height * width.")
 
-        self.board      = np.zeros((height, width))
-        self.visibility = np.zeros((width, height))
+        self.board      = np.zeros((height, width), dtype=int)
+        self.visibility = np.zeros((width, height), dtype=bool)
         self._populate_board(n_mines)
         self._assign_neighbors()
 
     def _populate_board(self, n_mines):
+        # TODO could have a problem with numbers of mines close to the number of the
+        # board, in terms of finding that random value. Could instead have a shrinking
+        # list of possible coordinate pairs (some indexing to linearize it), and randomly
+        # select from those each time. Could switch off which one is chosen on some
+        # saturation criteria
         mines_left = n_mines
         height, width = self.dimensions()
         while mines_left > 0:
@@ -52,6 +57,16 @@ class ms_board:
             Populates a board of zeros and mines with proper minesweeper counts
             of the number of neighboring mines
         '''
+        for i in range(self.board.shape[0]):
+            for j in range(self.board.shape[1]):
+                if self._is_mine(i, j):
+                    continue
+                assert self.board[i, j] == 0, "overriding a nonzero neighbor count"
+                neighboring_mines = 0
+                for pair in self.neighbors(i, j):
+                    if self._is_mine(*pair):
+                        neighboring_mines += 1
+                self.board[i, j] = neighboring_mines
 
     def neighbors(self, y_probe, x_probe):
         '''

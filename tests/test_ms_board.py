@@ -5,11 +5,7 @@ from minesweeper.ms_board import ms_board
 
 # TODO in wherever the gameplay section is, make sure 0 mines ends in one click
 # and width * height mines ends in 0 clicks (without making the board visible?)
-# TODO could have a problem with numbers of mines close to the number of the
-# board, in terms of finding that random value. Could instead have a shrinking
-# list of possible coordinate pairs (some indexing to linearize it), and randomly
-# select from those each time. Could switch off which one is chosen on some
-# saturation criteria
+
 def count_mines(ms_board):
     return np.count_nonzero(ms_board.board == -1)
 
@@ -95,6 +91,44 @@ class test_ms_neighbor_search(unittest.TestCase):
         self.assertTrue(self.compare_neighborlists(neighbors, correct_neighbors))
         # bottom
 
+class test_board_neighbor_counts(unittest.TestCase):
 
+    def setUp(self):
+        self.board = ms_board(3, 3, 0)
+
+    def test_does_not_override_mine(self):
+        self.board.board[0, 0] = -1
+        self.board.board[1, 1] = -1
+        self.board._assign_neighbors()
+        self.assertEqual(self.board.board[0, 0], -1)
+
+    def test_zero_neighbors(self):
+        self.board._assign_neighbors()
+        self.assertEqual(self.board.board[1, 1], 0)
+
+    def test_1_neighbor(self):
+        self.board.board[0, 0] = -1
+        self.board._assign_neighbors()
+        self.assertEqual(self.board.board[1, 1], 1)
+
+    def test_4_neighbors(self):
+        self.board.board[0, 0] = -1
+        self.board.board[1, 0] = -1
+        self.board.board[0, 1] = -1
+        self.board.board[0, 2] = -1
+        self.board._assign_neighbors()
+        self.assertEqual(self.board.board[1, 1], 4)
+
+    def test_8_neighbors(self):
+        self.board.board[0, 0] = -1
+        self.board.board[0, 1] = -1
+        self.board.board[0, 2] = -1
+        self.board.board[1, 0] = -1
+        self.board.board[1, 2] = -1
+        self.board.board[2, 0] = -1
+        self.board.board[2, 1] = -1
+        self.board.board[2, 2] = -1
+        self.board._assign_neighbors()
+        self.assertEqual(self.board.board[1, 1], 8)
 if __name__ == "__main__":
     unittest.main()
