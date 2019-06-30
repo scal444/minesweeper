@@ -11,10 +11,11 @@ re-draw every panel at the start, and then worry about the rest afterwards. The 
 stipulation is that if we have a game frame up already, it should work on that frame,
 rather than recreating a widget or whatever.
 
-Another thing is that for intermediate development, we want a quick and dirty
-hack of the representation, probably text-interface based. It will honestly probably
-be good practice to make the interface between text and gui-based representations
-interact the same with the rest of the code - yay API design.
+So, preliminarily, we'll have 3 main objects. A runner, a board, and a visualization
+of the board. The visualization can be drop-in customizable (or even optional), and
+is specified by the runner. If a widget, the visualization can send signals back to the runner, which
+can handle them by updating the board state and or the visualization
+
 
 What this gives us is a clear difference between visualization and representation.
 We'll start with that. The next thing is manipulation of the representation. This needs
@@ -22,4 +23,4 @@ to be able to be accessed both through a gui click, and as an automated workflow
 should be some clickaction interface to handle it.
 
 For visibility, we should maybe consider an enum of (unvisited, visited,
-marked_as_flag, marked_as_question). Can a numpy array hold that? 
+marked_as_flag, marked_as_question). Can a numpy array hold that?

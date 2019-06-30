@@ -130,5 +130,6 @@ class test_board_neighbor_counts(unittest.TestCase):
         self.board.board[2, 2] = -1
         self.board._assign_neighbors()
         self.assertEqual(self.board.board[1, 1], 8)
+
 if __name__ == "__main__":
     unittest.main()

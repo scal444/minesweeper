@@ -67,7 +67,9 @@ class ms_board:
                     if self._is_mine(*pair):
                         neighboring_mines += 1
                 self.board[i, j] = neighboring_mines
-
+        assert self.board.min() >= -1
+        assert self.board.max() <= 8
+        
     def neighbors(self, y_probe, x_probe):
         '''
             Calculates the neighboring grid points for a given board coordinate
