@@ -20,6 +20,11 @@ class ms_interactive_runner:
 
 
 
+    def run_app(self):
+        app = Qapplication([])
+        sys.exit(app.exec_())
+
+
 def main():
     app = QApplication([])
     test = ms_board(10, 8, 10)
