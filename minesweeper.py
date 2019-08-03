@@ -1,34 +1,20 @@
 import sys
-from minesweeper.visualization.with_qt import ms_visual
-from minesweeper import ms_board
+from minesweeper.ms_board import ms_board
+from minesweeper.ms_visual import ms_visual
 from PyQt5.QtWidgets import QApplication
 
-
-beginner_n_mines = 10
-beginner_dims = ( 10, 8)
-
-dims = beginner_dims
-
-
-square_size = 30
-window_dims = (square_size * dims[0], square_size * dims[1])
-# ------------------------------------------------------------------------
-class ms_interactive_runner:
-    def __init__(self, **game_args):
-        self.board = ms_board(**game_args)
-        self.visual_rep = QApplication(self.board.dimensions())
+class default_runner(object):
+    ''' Runner for a minesweeper game '''
+    def __init__(self, board_size, n_mines):
+        self._board = ms_board(*board_size, n_mines)
+        self._visual = ms_visual(self, self._board)
 
 
-
-    def run_app(self):
-        app = Qapplication([])
-        sys.exit(app.exec_())
-
+        self._visual.show()
 
 def main():
     app = QApplication([])
-    test = ms_board(10, 8, 10)
-    test.show_board()
+    runner =default_runner((10, 8), 8 )
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

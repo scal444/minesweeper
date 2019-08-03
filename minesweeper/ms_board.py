@@ -14,7 +14,6 @@ class ms_board:
             n_mines(int): number of mines with which to populate board
         Attributes:
             board (np.array:int) : board describing mines and number of neighboring mines
-            visibility (np.array:bool) : mask for whether tiles have been clicked
     '''
     def __init__(self, height, width, n_mines):
 
@@ -28,7 +27,6 @@ class ms_board:
             raise ValueError("More mines chosen than height * width.")
 
         self.board      = np.zeros((height, width), dtype=int)
-        self.visibility = np.zeros((width, height), dtype=bool)
         self._populate_board(n_mines)
         self._assign_neighbors()
 
@@ -42,14 +40,14 @@ class ms_board:
         height, width = self.dimensions()
         while mines_left > 0:
             i, j = np.random.randint(0, height), np.random.randint(0, width)
-            if not self._is_mine(i, j):
+            if not self.is_mine(i, j):
                 self.board[i, j] = -1
                 mines_left -= 1
 
     def dimensions(self):
         return self.board.shape
 
-    def _is_mine(self, y, x):
+    def is_mine(self, y, x):
         return self.board[y, x] == -1
 
     def _assign_neighbors(self):
@@ -59,17 +57,17 @@ class ms_board:
         '''
         for i in range(self.board.shape[0]):
             for j in range(self.board.shape[1]):
-                if self._is_mine(i, j):
+                if self.is_mine(i, j):
                     continue
                 assert self.board[i, j] == 0, "overriding a nonzero neighbor count"
                 neighboring_mines = 0
                 for pair in self.neighbors(i, j):
-                    if self._is_mine(*pair):
+                    if self.is_mine(*pair):
                         neighboring_mines += 1
                 self.board[i, j] = neighboring_mines
         assert self.board.min() >= -1
         assert self.board.max() <= 8
-        
+
     def neighbors(self, y_probe, x_probe):
         '''
             Calculates the neighboring grid points for a given board coordinate
@@ -80,6 +78,8 @@ class ms_board:
                 x - width of grid point
             Returns:
                 List of grid coordinates of neighbors, as tuples of (y, x)
+
+            TODO does this work with size 1 boards?
         '''
         ydim, xdim = self.dimensions()
 
