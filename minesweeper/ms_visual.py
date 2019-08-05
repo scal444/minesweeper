@@ -23,8 +23,8 @@ class ms_button(QPushButton):
     square_size = 30
 
 
-    def __init__(self, widget, position, text, is_visible):
-        super().__init(widget)
+    def __init__(self, widget, position, text, is_visible, is_clickable=True):
+        super().__init__(widget)
         self._position = position
         self._text = text
         self._is_visible = is_visible
@@ -32,7 +32,7 @@ class ms_button(QPushButton):
         self._widget = widget
 
         self.resize(self.square_size, self.square_size)
-        self.move(self.square_size * self._position[0], self.square_size * self._position[1])
+        self.move(self.square_size * self._position[1], self.square_size * self._position[0])
 
 
         self.clicked.connect(self.click_action)
@@ -43,7 +43,7 @@ class ms_button(QPushButton):
             is clickable
         '''
         if self._is_clickable:
-            widget.click_action(self._position)
+            self._widget.click_action(self._position)
 
 
     def set_visible(self, visibility):
@@ -70,7 +70,7 @@ class ms_button(QPushButton):
 
 class ms_visual(QWidget):
     '''
-        Visualization class for a minsweeper board. Controls what the user sees
+        Visualization class for a minesweeper board. Controls what the user sees
         at any time. Has access to an ms_board, which it can draw with
         specified visibilities.
     '''
@@ -90,19 +90,14 @@ class ms_visual(QWidget):
             self._visibility = dimensions.astype(bool)
         else:
             self._visibility = np.zeros(board.dimensions(), dtype=bool)
-        # self._create_buttons()
+        self._create_buttons()
         self.setGeometry(300, 300,
-                         dimensions[0] * ms_button.square_size,
-                         dimensions[1] * ms_button.square_size )
+                         dimensions[1] * ms_button.square_size,
+                         dimensions[0] * ms_button.square_size )
 
     def _create_buttons(self):
         ydim, xdim = self._dimensions()
-        self._squares = [[ms_button(self, (i, j), self._board.neighbors(i, j), self._visibility(i, j)) for x in range(xdim)] for y in range(ydim)]
-
-        self._squares = [[]] * y
-
-        for i in range(x):
-            self.squares[i].append(ms_button())
+        self._squares = [[ms_button(self, (y, x), self._board.neighbors(y, x), self._visibility[y, x]) for x in range(xdim)] for y in range(ydim)]
 
 
 

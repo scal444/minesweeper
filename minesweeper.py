@@ -8,9 +8,11 @@ class default_runner(object):
     def __init__(self, board_size, n_mines):
         self._board = ms_board(*board_size, n_mines)
         self._visual = ms_visual(self, self._board)
-
-
         self._visual.show()
+
+
+    def click_action(self, position):
+        print("click at position y = {}, x = {}".format(*position))
 
 def main():
     app = QApplication([])
