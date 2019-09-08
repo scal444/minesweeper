@@ -4,19 +4,19 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 class ms_button(QPushButton):
     ''' Aesthetics and visual things are class attributes '''
     text_colors = {
-        1 : "(0,0,255)",
-        2 : "(0,255,0)",
-        3 : "(255,0,0)",
-        4 : "(75,0,130)",
-        5 : "(128,0,0)",
-        6 : "(64,224,208)",
-        7 : "(0,0,0)",
-        8 : "(0,0,255)"
+        1: "(0,0,255)",
+        2: "(0,255,0)",
+        3: "(255,0,0)",
+        4: "(75,0,130)",
+        5: "(128,0,0)",
+        6: "(64,224,208)",
+        7: "(0,0,0)",
+        8: "(0,0,255)"
     }
     background_colors = {
-        'clicked'   : "(169,169,169)",
-        'unclicked' : "(211,211,211)",
-        'bomb'      : "(255,0,0)"
+        'clicked': "(169,169,169)",
+        'unclicked': "(211,211,211)",
+        'bomb': "(255,0,0)"
     }
 
     square_size = 30
@@ -50,12 +50,12 @@ class ms_button(QPushButton):
             self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['bomb']))
             self.setStyleSheet("color:rgb(0,0,0)")
             self.setText('X')
-            return;
+            return
 
         if self._is_visible:
             self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['bomb']))
             self.setStyleSheet("color:rgb(0,0,0)")
             self.setText(self._text)
-        else: # unclicked
+        else:  # unclicked
             self.setStyleSheet("background-color:rgb{:s}".format(self.background_colors['unclicked']))
             self.setText("")

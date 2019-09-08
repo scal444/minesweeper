@@ -1,6 +1,6 @@
 import sys
-from minesweeper.ms_board import ms_board
-from minesweeper.ms_visual import ms_visual
+from ms_board import ms_board
+from ms_visual import ms_visual
 from PyQt5.QtWidgets import QApplication
 
 
