@@ -1,8 +1,8 @@
 import numpy as np
-from copy import deepcopy
 '''
     Contains description of a minesweeper board.
 '''
+
 
 class ms_board:
     '''
@@ -15,6 +15,7 @@ class ms_board:
         Attributes:
             board (np.array:int) : board describing mines and number of neighboring mines
     '''
+
     def __init__(self, height, width, n_mines):
 
         if height <= 0:
@@ -26,7 +27,7 @@ class ms_board:
         if n_mines > height * width:
             raise ValueError("More mines chosen than height * width.")
 
-        self.board      = np.zeros((height, width), dtype=int)
+        self.board = np.zeros((height, width), dtype=int)
         self._populate_board(n_mines)
         self._assign_neighbors()
 
@@ -88,6 +89,6 @@ class ms_board:
         assert y_probe >= 0 and y_probe < ydim
         assert x_probe >= 0 and x_probe < xdim
 
-        potential_y = [y for y in range(y_probe -1, y_probe + 2) if y >= 0 and y < ydim]
-        potential_x = [x for x in range(x_probe -1, x_probe + 2) if x >= 0 and x < xdim]
+        potential_y = [y for y in range(y_probe - 1, y_probe + 2) if y >= 0 and y < ydim]
+        potential_x = [x for x in range(x_probe - 1, x_probe + 2) if x >= 0 and x < xdim]
         return[(y, x) for y in potential_y for x in potential_x if (y != y_probe or x != x_probe)]
