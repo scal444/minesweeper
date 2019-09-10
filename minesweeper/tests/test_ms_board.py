@@ -1,7 +1,7 @@
 # import context
 import unittest
 import numpy as np
-from minesweeper.ms_board import ms_board
+from minesweeper.internal.ms_board import ms_board
 
 # TODO in wherever the gameplay section is, make sure 0 mines ends in one click
 # and width * height mines ends in 0 clicks (without making the board visible?)

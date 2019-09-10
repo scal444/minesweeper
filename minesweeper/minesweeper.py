@@ -1,5 +1,5 @@
 import sys
-from ms_board import ms_board
+from internal.ms_board import ms_board
 from ms_visual import ms_visual
 from PyQt5.QtWidgets import QApplication
 
