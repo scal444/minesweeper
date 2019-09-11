@@ -14,6 +14,7 @@ install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION 
   - conda activate test-environment
   - while read requirement; do conda install --yes $requirement; done < requirements.txt
+  - conda install coverage
 
 script:
   - python -m unittest
