@@ -17,3 +17,4 @@ install:
 
 script:
   - python -m unittest
+  - coverage run minesweeper/tests/run_all_tests.py
