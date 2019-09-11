@@ -26,3 +26,4 @@ For visibility, we should maybe consider an enum of (unvisited, visited,
 marked_as_flag, marked_as_question). Can a numpy array hold that?
 
 [![Build Status](https://travis-ci.org/scal444/minesweeper.svg?branch=master)](https://travis-ci.org/scal444/minesweeper)
+https://travis-ci.org/scal444/minesweeper.svg?branch=master
