@@ -1,2 +1,2 @@
-pyqt=5.9.2
-numpy=1.16.4
+PyQt5
+numpy
