@@ -27,3 +27,6 @@ marked_as_flag, marked_as_question). Can a numpy array hold that?
 
 [![Build Status](https://travis-ci.org/scal444/minesweeper.svg?branch=master)](https://travis-ci.org/scal444/minesweeper)
 https://travis-ci.org/scal444/minesweeper.svg?branch=master
+
+.. image:: https://codecov.io/gh/scal444/minesweeper/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/scal444/minesweeper
