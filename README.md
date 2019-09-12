@@ -1,9 +1,12 @@
 ### Build status
 
+[![Build Status](https://travis-ci.org/scal444/minesweeper.svg?branch=master)](https://travis-ci.org/scal444/minesweeper)
+
+[![codecov](https://codecov.io/gh/scal444/minesweeper/branch/master/graph/badge.svg)(https://codecov.io/gh/scal444/minesweeper)
+
+### Organizational notes
 These are working notes on how to organize the setup, discussing (with self)
 how to divide responsibilities
-[![Build Status](https://travis-ci.org/scal444/minesweeper.svg?branch=master)](https://travis-ci.org/scal444/minesweeper)
-[![codecov](https://codecov.io/gh/scal444/minesweeper/branch/master/graph/badge.svg)(https://codecov.io/gh/scal444/minesweeper)
 
 We (I) want to make this both an interact-able game and a minesweeper solver
 engine, and of course the two will interact. The first division then is that the
