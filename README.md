@@ -1,3 +1,9 @@
+### Build status
+
+[![Build Status](https://travis-ci.org/scal444/minesweeper.svg?branch=master)](https://travis-ci.org/scal444/minesweeper)
+[![codecov](https://codecov.io/gh/scal444/minesweeper/branch/master/graph/badge.svg)](https://codecov.io/gh/scal444/minesweeper)
+
+### Organizational notes
 These are working notes on how to organize the setup, discussing (with self)
 how to divide responsibilities
 
@@ -24,9 +30,3 @@ should be some clickaction interface to handle it.
 
 For visibility, we should maybe consider an enum of (unvisited, visited,
 marked_as_flag, marked_as_question). Can a numpy array hold that?
-
-[![Build Status](https://travis-ci.org/scal444/minesweeper.svg?branch=master)](https://travis-ci.org/scal444/minesweeper)
-https://travis-ci.org/scal444/minesweeper.svg?branch=master
-
-.. image:: https://codecov.io/gh/scal444/minesweeper/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/scal444/minesweeper
