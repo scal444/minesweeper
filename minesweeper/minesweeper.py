@@ -16,10 +16,14 @@ class default_runner(object):
         print("click at position y = {}, x = {}".format(*position))
 
 
-def main():
+def minesweeper():
     app = QApplication([])
     default_runner((10, 8), 8)
     sys.exit(app.exec_())
+
+
+def main():
+    minesweeper(sys.argv[1])
 
 
 if __name__ == "__main__":
